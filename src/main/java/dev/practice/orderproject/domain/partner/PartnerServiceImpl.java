@@ -1,30 +1,21 @@
 package dev.practice.orderproject.domain.partner;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PartnerServiceImpl implements PartnerService {
+
+    private final PartnerStore partnerStore;
 
     @Override
     public PartnerInfo registerPartner(PartnerCommand command) {
-        var initPartner = Partner.builder()
-                .partnerName(command.getPartnerName())
-                .businessNo(command.getBusinessNo())
-                .email(command.getEmail())
-                .build();
-
+        var initPartner = command.toEntity();
         Partner partner = partnerStore.store(initPartner);
-
-        return PartnerInfo.builder()
-                .id(partner.getId())
-                .status(partner.getStatus())
-                .partnerName(partner.getPartnerName())
-                .businessNo(partner.getBusinessNo())
-                .email(partner.getEmail())
-                .status(partner.getStatus())
-                .build();
+        return new PartnerInfo(partner);
     }
 
     @Override
