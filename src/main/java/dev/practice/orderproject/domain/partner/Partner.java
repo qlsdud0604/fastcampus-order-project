@@ -1,5 +1,6 @@
 package dev.practice.orderproject.domain.partner;
 
+import dev.practice.orderproject.common.exception.InvalidParamException;
 import dev.practice.orderproject.common.util.TokenGenerator;
 import dev.practice.orderproject.domain.AbstractEntity;
 import lombok.Builder;
@@ -40,9 +41,9 @@ public class Partner extends AbstractEntity {
 
     @Builder
     public Partner(String partnerName, String businessNo, String email) {
-        if (StringUtils.isEmpty(partnerName)) throw new RuntimeException("empty partnerName");
-        if (StringUtils.isEmpty(businessNo)) throw new RuntimeException("empty businessNo");
-        if (StringUtils.isEmpty(email)) throw new RuntimeException("empty email");
+        if (StringUtils.isEmpty(partnerName)) throw new InvalidParamException("empty partnerName");
+        if (StringUtils.isEmpty(businessNo)) throw new InvalidParamException("empty businessNo");
+        if (StringUtils.isEmpty(email)) throw new InvalidParamException("empty email");
 
         this.partnerToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_OF_PARTNER_TOKEN);
         this.partnerName = partnerName;

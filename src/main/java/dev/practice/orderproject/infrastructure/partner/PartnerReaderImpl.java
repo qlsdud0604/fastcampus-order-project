@@ -1,5 +1,6 @@
 package dev.practice.orderproject.infrastructure.partner;
 
+import dev.practice.orderproject.common.exception.EntityNotFoundException;
 import dev.practice.orderproject.domain.partner.Partner;
 import dev.practice.orderproject.domain.partner.PartnerReader;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,6 @@ public class PartnerReaderImpl implements PartnerReader {
     @Override
     public Partner getPartner(String partnerToken) {
         return partnerRepository.findByPartnerToken(partnerToken)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new EntityNotFoundException());
     }
 }
