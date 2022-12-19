@@ -1,5 +1,6 @@
 package dev.practice.orderproject.domain.partner;
 
+import dev.practice.orderproject.domain.AbstractEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,14 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 @Slf4j
 @Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "partners")
-public class Partner {
+public class Partner extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,6 @@ public class Partner {
     private String partnerName;
     private String businessNo;
     private String email;
-
-    private ZonedDateTime createdAt;
-    private ZonedDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -49,8 +46,6 @@ public class Partner {
         this.businessNo = businessNo;
         this.email = email;
         this.status = Status.ENABLE;
-        this.createdAt = ZonedDateTime.now();
-        this.updatedAt = ZonedDateTime.now();
     }
 
     public void enable() {
