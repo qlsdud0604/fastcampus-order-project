@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class PartnerServiceImpl implements PartnerService {
 
     private final PartnerStore partnerStore;
+    private final PartnerReader partnerReader;
 
     @Override
     public PartnerInfo registerPartner(PartnerCommand command) {
@@ -20,16 +21,21 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Override
     public PartnerInfo getPartnerInfo(String partnerToken) {
-        return null;
+        Partner partner = partnerReader.getPartner(partnerToken);
+        return new PartnerInfo(partner);
     }
 
     @Override
     public PartnerInfo enablePartner(String partnerToken) {
-        return null;
+        Partner partner = partnerReader.getPartner(partnerToken);
+        partner.enable();
+        return new PartnerInfo(partner);
     }
 
     @Override
     public PartnerInfo disablePartner(String partnerToken) {
-        return null;
+        Partner partner = partnerReader.getPartner(partnerToken);
+        partner.disable();
+        return new PartnerInfo(partner);
     }
 }
