@@ -3,10 +3,12 @@ package dev.practice.orderproject.interfaces.partner;
 import dev.practice.orderproject.domain.partner.Partner;
 import dev.practice.orderproject.domain.partner.PartnerCommand;
 import dev.practice.orderproject.domain.partner.PartnerInfo;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 public class PartnerDto {
 
@@ -14,8 +16,14 @@ public class PartnerDto {
     @Setter
     @ToString
     public static class RegisterRequest {
+        @NotEmpty(message = "partnerName은 필수값입니다.")
         private String partnerName;
+
+        @NotEmpty(message = "businessNo은 필수값입니다.")
         private String businessNo;
+
+        @Email(message = "email 형식에 맞아야 합니다.")
+        @NotEmpty(message = "email을 필수값입니다.")
         private String email;
 
         public PartnerCommand toCommand() {
